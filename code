@@ -1,0 +1,23 @@
+import cv2
+path = 'Mouth Ulcer/MU3.jpg'
+img = cv2.imread(path)  # reading the images
+print(img.shape)
+
+cv2.imshow("img", img)    # test the image
+# the new resolution of the image
+# zooming in the feature(oral tumor)
+width = 500
+height = 300
+# making resizing
+imgrezise = cv2.resize(img, (width, height))
+# cv2.imshow('resize', imgrezise)
+img_crop = img[20:190, 70:250]
+img_crop_resize = cv2.resize(img_crop, (img.shape[1], img.shape[0]))  # zooming with the same size of image
+img_crop_resize = cv2.resize(img_crop, (500, 300))
+cv2.imshow('finally', img_crop_resize)
+bilateral = cv2.bilateralFilter(img_crop_resize, 9, 75, 75)  #sharping-filter
+cv2.imshow("123", bilateral)
+filename = "processed Mouth Ulcer/MU3.jpg"
+cv2.imwrite(filename, img_crop_resize)  # saving the image
+
+cv2.waitKey(0)
